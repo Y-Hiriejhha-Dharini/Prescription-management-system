@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\Prescription;
 use App\Models\PrescriptionImage;
 use App\Models\Quotation;
+use App\Notifications\NewQuotationNotification;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -32,6 +33,11 @@ class StoreQuotationService{
                     ]);
                 };
             }
+            $prescription = Prescription::find($validated_data['prescription_id']);
+            $prescription->update(['status'=>'pending']);
+
+            $user = $prescription->user;
+            $user->notify(new NewQuotationNotification($prescription));
 
             DB::commit();
             return true;

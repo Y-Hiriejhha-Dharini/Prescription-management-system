@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Prescription::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->decimal('total_amount',8,2);
-            $table->boolean('email_status')->default(0)->comment('0-sent, 1-not-sent');
+            $table->boolean('email_status')->comment('0-sent, 1-not-sent')->nullable();
             $table->timestamps();
         });
     }

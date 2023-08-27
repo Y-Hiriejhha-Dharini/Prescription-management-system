@@ -3,6 +3,7 @@
 use App\Http\Controllers\PrescriptionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuotataionController;
+use App\Http\Controllers\QuotationConfirmCancel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,5 +33,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('prescription', PrescriptionController::class)->only(['create', 'store'])->middleware('can:user-only');
     Route::resource('quotation', QuotataionController::class)->only(['create', 'store'])->middleware('can:pharmacy-only');
 });
+
+    Route::get('confirm/{token}', [QuotationConfirmCancel::class,'confirm']);
+    Route::get('cancel/{token}', [QuotationConfirmCancel::class,'cancel']);
+
 
 require __DIR__.'/auth.php';

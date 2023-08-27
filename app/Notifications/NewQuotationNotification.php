@@ -2,10 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Models\Prescription;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
 class NewQuotationNotification extends Notification
 {
@@ -14,7 +16,7 @@ class NewQuotationNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public $prescription)
     {
         //
     }
@@ -34,10 +36,16 @@ class NewQuotationNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $token = encrypt($this->prescription->id);
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->view('emails.pharmacyConfirmation',
+                [
+                    'name' => $this->prescription->user->name,
+                    'created_at' => $this->prescription->created_at->format('Y-m-d H:i:s'),
+                    'token' => $token,
+                ])
+                ->subject('Quotation Confirmation');
+
     }
 
     /**

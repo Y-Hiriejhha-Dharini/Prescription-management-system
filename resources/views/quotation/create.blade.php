@@ -142,14 +142,7 @@
                                       },
                               data: $('#create_quotation_form').serialize(),
                               success: function(data){
-                                Swal.fire({
-                                    position: 'top-end',
-                                    icon: 'success',
-                                    title: 'Your work has been saved',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                    })
-                                    window.location.href= '{{route('dashboard')}}';
+                                // window.location.href= '{{route('dashboard')}}';
                                 }
                           });
                       }else{
