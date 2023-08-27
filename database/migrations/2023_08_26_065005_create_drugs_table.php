@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('weight');
             $table->decimal('price',5,2);
+            $table->boolean('status')->default(0)->comment('0-active, 1-inactive');
             $table->timestamps();
         });
     }

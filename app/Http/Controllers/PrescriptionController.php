@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePrescriptionRequest;
-use App\Services\PrescriptionService;
+use App\Services\StorePrescriptionService;
 use Illuminate\Http\Request;
 
 class PrescriptionController extends Controller
@@ -15,9 +15,15 @@ class PrescriptionController extends Controller
         return view('prescription.create');
     }
 
-    public function store(StorePrescriptionRequest $request, PrescriptionService $PrescriptionService)
+    public function store(StorePrescriptionRequest $request, StorePrescriptionService $StorePrescriptionService)
     {
 
-        $PrescriptionService->execute($request->note ?? '', $request->validated());
+        if ($StorePrescriptionService->execute($request->note ?? '', $request->validated())) {
+
+            return redirect('/dashboard')->with('success', 'Prescription Stored Successfully');
+        } else {
+
+            return redirect('/dashboard')->with('error', 'Error in Store Data');
+        }
     }
 }

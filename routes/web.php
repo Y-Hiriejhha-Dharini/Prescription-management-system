@@ -29,8 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('prescription', PrescriptionController::class)->only(['create', 'store']);
-    Route::resource('quotation', QuotataionController::class)->only(['create', 'store']);
+    Route::resource('prescription', PrescriptionController::class)->only(['create', 'store'])->middleware('can:user-only');
+    Route::resource('quotation', QuotataionController::class)->only(['create', 'store'])->middleware('can:pharmacy-only');
 });
 
 require __DIR__.'/auth.php';

@@ -1,31 +1,36 @@
 <?php
-
 namespace App\Services;
 
-use App\Models\Image;
 use App\Models\Prescription;
-use App\Models\PrescriptionImage;
+use App\Models\Quotation;
 
-class PrescriptionService{
+class prescriptionService{
 
-    public function execute($note, $validated_data)
+    public static function prescriptionByUser(object $user)
     {
-        $prescription = Prescription::create([
-            'user_id' => auth()->user()->id,
-            'delivery_address' => $validated_data['delivery_address'],
-            'delivery_time' => $validated_data['delivery_time'],
-            'note' => $note,
-            'status' => 'progress'
-        ]);
+        if($user->user_type == 'user')
+        {
+            $user = auth()->user();
+            $prescriptions = Quotation::whereHas('prescription.user', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->whereHas('prescription', function ($query) {
+                $query->where('status', 'pending');
+            })
+            ->orderBy('id','desc')
+            ->get();
 
-        foreach ($validated_data['images'] as $image){
-            $image_name = time().'-'.$image->hashName();
-            $image->move('images',$image_name);
+        }elseif($user->user_type == 'pharmacy')
+        {
+            $prescriptions = Prescription::where('status','progress')->orderBy('id','desc')->paginate(10);
 
-            $prescription->prescriptionImage()->create([
-                'img_path' => $image_name
-            ]);
-        };
+        }elseif($user->user_type == 'admin')
+        {
+            $prescriptions = Prescription::orderBy('id','desc')->paginate(10);
 
+        }
+
+        return $prescriptions;
     }
+
 }

@@ -9,13 +9,14 @@
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="text-center text-xl mb-10 font-bold">{{ __("PRESCRIPTION UPLOAD FORM") }}</h1>
+                    <h1 class="text-center text-xl mb-10 font-bold">{{ __("PRESCRIPTION UPLOAD") }}</h1>
                     <form class="w-full max-w-lg mx-auto" method="POST" action="{{route('prescription.store')}}" enctype="multipart/form-data">
                         @csrf
                         <div class="flex flex-wrap -mx-3 mb-6">
                             <div class="w-full px-3">
                               <x-input-label for="images" :value="__('Images')" />
                               <x-text-input id="images" class="block mt-1 w-full" type="file" name="images[]" multiple :value="old('images[]')" required autocomplete="images" />
+                              <p class="text-gray-600 text-xs italic">Minimum 5 prescription images can be selected within 2 hours time periods</p>
                               <x-input-error :messages="$errors->get('images')" class="mt-2" />
                             </div>
                         </div>
@@ -55,7 +56,7 @@
                           </div>
                         </div>
                         <div class="flex items-center justify-end mt-4">
-                            <x-primary-button class="bg-green-500 ml-2 focus:bg-green-700">
+                            <x-primary-button class="bg-green-500 ml-2 focus:bg-blue-700">
                                 {{ __('SAVE') }}
                             </x-primary-button>
                             <x-primary-button type="reset" class="bg-red-500 ml-2 focus:bg-red-700">

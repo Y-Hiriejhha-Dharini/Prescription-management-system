@@ -17,12 +17,14 @@
                     </x-nav-link>
                 </div>
 
-                <!-- Prescription Upload -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('prescription.create')" :active="request()->routeIs('prescription.create')">
-                        {{ __('Prescription Upload') }}
-                    </x-nav-link>
-                </div>
+                <!-- Prescription Links -->
+                @can('user-only')
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('prescription.create')" :active="request()->routeIs('prescription.create')">
+                            {{ __('Prescription Upload') }}
+                        </x-nav-link>
+                    </div>
+                @endcan
             </div>
 
             <!-- Settings Dropdown -->
@@ -79,11 +81,14 @@
             </x-responsive-nav-link>
         </div>
 
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('prescription.create')" :active="request()->routeIs('prescription.create')">
-                {{ __('Prescription Upload') }}
-            </x-responsive-nav-link>
-        </div>
+
+        @can('user-only')
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('prescription.create')" :active="request()->routeIs('prescription.create')">
+                    {{ __('Prescription Upload') }}
+                </x-responsive-nav-link>
+            </div>
+        @endcan
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
