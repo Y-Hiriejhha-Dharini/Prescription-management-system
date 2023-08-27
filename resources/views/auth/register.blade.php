@@ -16,6 +16,38 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Address -->
+        <div class="mt-4">
+            <x-input-label for="address" :value="__('Address')" />
+            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')" required autocomplete="address" />
+            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+        </div>
+
+         <!-- Contact No -->
+         <div class="mt-4">
+            <x-input-label for="contact_no" :value="__('Contact No')" />
+            <x-text-input id="contact_no" class="block mt-1 w-full" type="text" name="contact_no" :value="old('contact_no')" required autocomplete="phone" />
+            <x-input-error :messages="$errors->get('contact_no')" class="mt-2" />
+        </div>
+
+         <!-- Date of Birth -->
+         <div class="mt-4">
+            <x-input-label for="dob" :value="__('Date of Birth')" />
+            <x-text-input id="dob" class="block mt-1 w-full" type="date" name="dob" :value="old('dob')" required />
+            <x-input-error :messages="$errors->get('dob')" class="mt-2" />
+        </div>
+
+        <!-- User Type -->
+        <div class="mt-4">
+            <x-input-label for="user_type" :value="__('User Type')" />
+            <select class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" id="user_type" name="user_type" required>
+                <option>User Type</option>
+                <option value="user">User</option>
+                <option value="pharmacy">Pharmacy</option>
+            </select>
+            <x-input-error :messages="$errors->get('user_type')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
@@ -24,7 +56,6 @@
                             type="password"
                             name="password"
                             required autocomplete="new-password" />
-
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
