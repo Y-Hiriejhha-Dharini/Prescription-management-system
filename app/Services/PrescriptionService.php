@@ -18,7 +18,7 @@ class prescriptionService{
                 $query->where('status', 'pending');
             })
             ->orderBy('id','desc')
-            ->get();
+            ->paginate(10);
 
         }elseif($user->user_type == 'pharmacy')
         {

@@ -112,7 +112,7 @@
                     @if(count($prescriptions) > 0)
                         <x-slot name="header">
                             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                                {{ __('Pharmacy Dashboard') }}
+                                {{ __('Admin Dashboard') }}
                             </h2>
                         </x-slot>
                         <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -149,6 +149,9 @@
                         <h1 class="p-5">No Prescriptions to Show</h1>
                     @endif
                 @endcan
+                <div class="p-2">
+                    {{ $prescriptions->links() }}
+                </div>
             </div>
         </div>
     </div>
@@ -170,7 +173,7 @@
                 Swal.fire({
                 position: 'top-end',
                 icon: 'error',
-                title: 'Your work has been saved',
+                title: 'Your work has been not saved',
                 showConfirmButton: false,
                 timer: 1500,
                 text: '{{session('error')}}'

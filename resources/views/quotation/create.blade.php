@@ -3,27 +3,29 @@
       .table-border{
         border: 1px solid black;
       }
+      .wide-input {
+        width: 50px;
+        }
     </style>
 
-   {{-- @dd(public_path('images/'.$images->image[0]['path'])) --}}
     <div class="table-border">
       <form action="{{route('quotation.store')}}" method="POST" name="create_quotation_form" id="create_quotation_form">
         @csrf
-        <table class="border-4 border-green-500 border-spacing-2" width="90%">
+        <table class="border-4 border-green-500 border-spacing-2" width="100%">
           <tr class="text-center">
               <td class="border-4 border-slate-300 p-2">
                   <input type="hidden" value="{{$images->id}}" name="prescription_id" id="prescription_id">
-                  <table class="border-collapse table-auto border border-black" width="100%">
+                  <table class="border-collapse table-auto border border-black" style="width: 100%;" width="100%">
                           <div class="mx-auto mb-4 max-w-sm bg-white border border-black rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                               <a href="#">
                                   <img class="rounded-t-lg m-2" height="70%" id="image0" onclick="change_image(0)" width="60%" src="{{URL('images/'.$images->prescriptionImage[0]['img_path'])}}" class="mx-auto" alt="" />
                               </a>
                           </div>
                       <tr>
-                          <td class="border border-slate-300"><a href=""> <img id="image1" onclick="change_image(1)" src="{{ isset($images->prescriptionImage[1]) ? URL('images/'.$images->prescriptionImage[1]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
-                          <td class="border border-slate-300"><a href=""> <img id="image2" onclick="change_image(2)" src="{{ isset($images->prescriptionImage[2]) ? URL('images/'.$images->prescriptionImage[2]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
-                          <td class="border border-slate-300"><a href=""> <img id="image3" onclick="change_image(3)" src="{{ isset($images->prescriptionImage[3]) ? URL('images/'.$images->prescriptionImage[3]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
-                          <td class="border border-slate-300"><a href=""> <img id="image4" onclick="change_image(4)" src="{{ isset($images->prescriptionImage[4]) ? URL('images/'.$images->prescriptionImage[4]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image1" onclick="change_image(1)" src="{{ isset($images->prescriptionImage[1]) ? URL('images/'.$images->prescriptionImage[1]['img_path']) : null}}" class="mx-auto box-border h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image2" onclick="change_image(2)" src="{{ isset($images->prescriptionImage[2]) ? URL('images/'.$images->prescriptionImage[2]['img_path']) : null}}" class="mx-auto box-border h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image3" onclick="change_image(3)" src="{{ isset($images->prescriptionImage[3]) ? URL('images/'.$images->prescriptionImage[3]['img_path']) : null}}" class="mx-auto box-border h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image4" onclick="change_image(4)" src="{{ isset($images->prescriptionImage[4]) ? URL('images/'.$images->prescriptionImage[4]['img_path']) : null}}" class="mx-auto box-border h-40 w-25 border-4" alt=""></a></td>
                       </tr>
                   </table>
               </td>
@@ -45,8 +47,8 @@
                               </tbody>
                               <tfoot>
                                   <tr>
-                                      <td colspan="2" class="pt-5 pl-10">Total</td>
-                                      <td ><input type="text" name="total" id="total" class="outline-none border-none"></td>
+                                      <td colspan="2" class="pt-5">Total</td>
+                                      <td class="pt-2"><input type="text" name="total" id="total" class="outline-none border-none"></td>
                                   </tr>
                               </tfoot>
                           </table>
@@ -141,7 +143,15 @@
                                       },
                               data: $('#create_quotation_form').serialize(),
                               success: function(data){
-                                // window.location.href= '{{route('dashboard')}}';
+                                        Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Your work has been saved',
+                                        showConfirmButton: false,
+                                        timer: 1500,
+                                        text: '{{session('data')}}'
+                                        })
+                                    window.location.href= '{{route('dashboard')}}';
                                 }
                           });
                       }else{

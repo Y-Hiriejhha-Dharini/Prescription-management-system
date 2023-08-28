@@ -34,7 +34,7 @@ class QuotationConfirmCancel extends Controller
         $pharmacy = User::where('user_type','pharmacy')->first();
         $pharmacy->notify(new ConfirmRejectQuotationNotification($this->findPrescription($token),'cancelled'));
         
-        return redirect('/dashboard')->with('success','Confirmed Successfully');
+        return redirect('/dashboard')->with('error','Confirmed Successfully');
     }
 
     private function findPrescription($token)
