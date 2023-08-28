@@ -68,13 +68,18 @@
         </div>
         
         <div class="content">
-            <h2>Hello, {{$name}}!</h2>
-            <p>The QUOTATION has been created for your {{$created_at}} dated PRESCRIPTION</p>
-            <br>
-            <p>Confirm or Cancel the Quotation</p>
+            <h2>{{$status}}</h2>
+            @if($status == 'cancelled')
+                <p>User has Cancelled the {{$created_at}} dated prescription</p>
+                <br>
+                <p>Sorry for the inconvenience</p>
+            @else
+                <p>User has Confirmed the {{$created_at}} dated prescription</p>
+                <br>
+                <p>Please Delivery the product soon</p>
             <p>
-                <a href="{{'confirm/'.$token}}" class="button">Confirm</a>
-                <a href="{{'cancel/'.$token}}" class="button">Cancel</a>
+                <a href="{{ route('confirm', ['token' => $token]) }}" class="button">Confirm</a>
+                <a href="{{ route('cancel', ['token' => $token]) }}" class="button">Cancel</a>
             </p>
         </div>
         <div class="footer">

@@ -142,7 +142,7 @@
                                       },
                               data: $('#create_quotation_form').serialize(),
                               success: function(data){
-                                // window.location.href= '{{route('dashboard')}}';
+                                window.location.href= '{{route('dashboard')}}';
                                 }
                           });
                       }else{

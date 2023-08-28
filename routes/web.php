@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('quotation', QuotataionController::class)->only(['create', 'store'])->middleware('can:pharmacy-only');
 });
 
-    Route::get('confirm/{token}', [QuotationConfirmCancel::class,'confirm']);
-    Route::get('cancel/{token}', [QuotationConfirmCancel::class,'cancel']);
+    Route::get('confirm/{token}', [QuotationConfirmCancel::class,'confirm'])->name('confirm');
+    Route::get('cancel/{token}', [QuotationConfirmCancel::class,'cancel'])->name('cancel');
 
 
 require __DIR__.'/auth.php';

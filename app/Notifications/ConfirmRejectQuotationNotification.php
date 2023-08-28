@@ -14,7 +14,7 @@ class ConfirmRejectQuotationNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct(public $prescription, public $status)
     {
         //
     }
@@ -35,9 +35,12 @@ class ConfirmRejectQuotationNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                ->view('emails.pharmacyConfirmation',
+                [
+                    'status' => $this->status,
+                    'created_at' => $this->prescription->created_at->format('Y-m-d H:i:s')
+                ])
+                ->subject('Quotation Confirmation');
     }
 
     /**

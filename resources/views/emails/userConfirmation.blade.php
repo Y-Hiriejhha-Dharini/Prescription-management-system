@@ -68,7 +68,8 @@
         </div>
         <div class="content">
             <h2>Hello, {{$name}}!</h2>
-            <p>The QUOTATION has been created for your {{created_at}} dated PRESCRIPTION</p>
+            <p>The Quotation has been created for your {{created_at}} dated Prescription</p>
+            <br/>
             <p>Confirm or Cancel the Quotation</p>
             <p>
                 <a href="{{$confirm}}" class="button">Confirm</a>
