@@ -30,7 +30,7 @@
 
         /* Header styles */
         .header {
-            background-color: #007bff;
+            background-color: #0bbb0b;
             color: #ffffff;
             padding: 20px;
             border-top-left-radius: 5px;
@@ -67,16 +67,17 @@
             <h1>Medical Prescription</h1>
         </div>
         <div class="content">
-            <h2>Hello, {{$name}}!</h2>
-            <p>The Quotation has been created for your {{created_at}} dated Prescription</p>
-            <br/>
-            <p>Confirm or Cancel the Quotation</p>
-            <p>
-                <a href="{{$confirm}}" class="button">Confirm</a>
-            </p>
-            <p>
-                <a href="{{$cancel}}" class="button">Cancel</a>
-            </p>
+            <h2>{{$status}}</h2>
+
+            @if($status == 'cancelled')
+                <p>User has Cancelled the {{$created_at}} dated prescription</p>
+                <br>
+                <p>Sorry for the inconvenience</p>
+            @else
+                <p>User has Confirmed the {{$created_at}} dated prescription</p>
+                <br>
+                <p>Please Delivery the product soon</p>
+            @endif
         </div>
         <div class="footer">
             &copy; {{ date('Y') }} Medical Prescription. All rights reserved.

@@ -26,7 +26,7 @@
                                     <thead class="bg-gray-800 text-white">
                                         <tr>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">User Name</th>
-                                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Delivery Date</th>
+                                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Delivery Address</th>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Delivery Time</th>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Note</th>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Status</th>
@@ -41,9 +41,9 @@
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->delivery_address}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->delivery_time}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->note}}</td>
-                                                <td class="w-1/3 text-left py-3 px-4">{{$prescription->status}}</td>
+                                                <td class="w-1/3 text-left py-3 px-4">{{ucfirst($prescription->status)}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->created_at}}</td>
-                                                <td class="w-1/3 text-left py-3 px-4">{{uppercase($prescription->created_at)}}</td>
+                                                <td class="w-1/3 text-left py-3 px-4">{{ucfirst($prescription->created_at)}}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -69,7 +69,7 @@
                                     <thead class="bg-gray-800 text-white">
                                         <tr>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">User Name</th>
-                                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Delivery Date</th>
+                                            <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Delivery Address</th>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Delivery Time</th>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Note</th>
                                             <th class="w-1/3 text-left py-3 px-4 uppercase font-semibold text-sm">Status</th>
@@ -84,18 +84,18 @@
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->delivery_address}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->delivery_time}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->note}}</td>
-                                                <td class="w-1/3 text-left py-3 px-4">{{$prescription->status}}</td>
+                                                <td class="w-1/3 text-left py-3 px-4">{{ucfirst($prescription->status)}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->created_at}}</td>
-                                                <td class="w-1/3 text-left py-3 px-4">
-                                                    @if($prescription->status == 'progress')
+                                                @if($prescription->status == 'progress')
+                                                    <td class="w-1/3 text-left py-3 px-4">
                                                         <a href="{{route('quotation.create',['id' => $prescription->id]) }}" class="w-1/3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                                             Quotation
                                                         </a>
-                                                    @else
-                                                        <td class="w-1/3 text-left py-3 px-4">{{$prescription->status}}</td>
-                                                    @endif
+                                                    </td>
+                                                @else
+                                                        <td class="w-1/3 text-left py-3 px-4">{{ucfirst($prescription->status)}}</td>
+                                                @endif
                                                     
-                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -136,9 +136,9 @@
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->delivery_address}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->delivery_time}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->note}}</td>
-                                                <td class="w-1/3 text-left py-3 px-4">{{$prescription->status}}</td>
+                                                <td class="w-1/3 text-left py-3 px-4">{{ucfirst($prescription->status)}}</td>
                                                 <td class="w-1/3 text-left py-3 px-4">{{$prescription->created_at}}</td>
-                                                <td class="w-1/3 text-left py-3 px-4">{{$prescription->status}}</td>
+                                                <td class="w-1/3 text-left py-3 px-4">{{ucfirst($prescription->status)}}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -153,28 +153,30 @@
         </div>
     </div>
 
-    @if(session()->has('success'))
-        <script>
-            Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500,
-            text: '{{session('success')}}'
-            })
-        </script>
-    @else
-        <script>
-            Swal.fire({
-            position: 'top-end',
-            icon: 'error',
-            title: 'Your work has been saved',
-            showConfirmButton: false,
-            timer: 1500,
-            text: '{{session('error')}}'
-            })
-        </script>
+    @if(session()->has('key'))
+        @if(session()->has('success'))
+            <script>
+                Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500,
+                text: '{{session('success')}}'
+                })
+            </script>
+        @elseif(session()->has('error'))
+            <script>
+                Swal.fire({
+                position: 'top-end',
+                icon: 'error',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500,
+                text: '{{session('error')}}'
+                })
+            </script>
+        @endif
     @endif
     
 </x-app-layout>

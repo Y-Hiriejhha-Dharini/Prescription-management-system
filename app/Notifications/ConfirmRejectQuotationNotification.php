@@ -35,12 +35,12 @@ class ConfirmRejectQuotationNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                ->view('emails.pharmacyConfirmation',
+                ->view('emails.userConfirmation',
                 [
                     'status' => $this->status,
                     'created_at' => $this->prescription->created_at->format('Y-m-d H:i:s')
                 ])
-                ->subject('Quotation Confirmation');
+                ->subject('User Quotation Confirmation');
     }
 
     /**

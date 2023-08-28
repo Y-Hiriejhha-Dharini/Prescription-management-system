@@ -33,12 +33,12 @@ class StoreQuotationService{
                     ]);
                 };
             }
+           
             $prescription = Prescription::find($validated_data['prescription_id']);
             $prescription->update(['status'=>'pending']);
-
+            
             $user = $prescription->user;
             $user->notify(new NewQuotationNotification($prescription));
-
             DB::commit();
             return true;
         }catch(Exception $e)

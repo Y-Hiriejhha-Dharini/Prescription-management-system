@@ -22,7 +22,7 @@ class prescriptionService{
 
         }elseif($user->user_type == 'pharmacy')
         {
-            $prescriptions = Prescription::where('status','progress')->orderBy('id','desc')->paginate(10);
+            $prescriptions = Prescription::whereNot('status','pending')->orderBy('id','desc')->paginate(10);
 
         }elseif($user->user_type == 'admin')
         {

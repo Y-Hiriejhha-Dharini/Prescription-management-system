@@ -36,15 +36,18 @@ class NewQuotationNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        // Log::info('Notification sent to: ' . $notifiable->email);
         $token = encrypt($this->prescription->id);
+        
         return (new MailMessage)
+                ->subject('Quotation Confirmation')
                 ->view('emails.pharmacyConfirmation',
                 [
                     'name' => $this->prescription->user->name,
                     'created_at' => $this->prescription->created_at->format('Y-m-d H:i:s'),
-                    'token' => $token,
-                ])
-                ->subject('Quotation Confirmation');
+                    'token' => $token
+                ]);
+                
 
     }
 

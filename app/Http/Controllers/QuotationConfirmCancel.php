@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prescription;
+use App\Models\User;
 use App\Notifications\ConfirmRejectQuotationNotification;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 class QuotationConfirmCancel extends Controller
 {
@@ -17,8 +19,8 @@ class QuotationConfirmCancel extends Controller
             'status' =>'confirmed'
         ]);
 
-        $user = auth()->user();
-        $user->notify(new ConfirmRejectQuotationNotification([$this->findPrescription($token),'confirmed']));
+        $pharmacy = User::where('user_type','pharmacy')->first();
+        $pharmacy->notify(new ConfirmRejectQuotationNotification($this->findPrescription($token),'confirmed'));
 
         return redirect('/dashboard')->with('success','Confirmed Successfully');
     }
@@ -26,11 +28,11 @@ class QuotationConfirmCancel extends Controller
     public function cancel($token)
     {
         $this->findPrescription($token)->update([
-            'status' =>'cancelled'
+            'status' =>'rejected'
         ]);
 
-        $user = auth()->user();
-        $user->notify(new ConfirmRejectQuotationNotification([$this->findPrescription($token),'confirmed']));
+        $pharmacy = User::where('user_type','pharmacy')->first();
+        $pharmacy->notify(new ConfirmRejectQuotationNotification($this->findPrescription($token),'cancelled'));
         
         return redirect('/dashboard')->with('success','Confirmed Successfully');
     }

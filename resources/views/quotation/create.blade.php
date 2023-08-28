@@ -9,33 +9,33 @@
     <div class="table-border">
       <form action="{{route('quotation.store')}}" method="POST" name="create_quotation_form" id="create_quotation_form">
         @csrf
-        <table class="border-4 border-green-500 border-spacing-2" width="100%">
-          <tr>
+        <table class="border-4 border-green-500 border-spacing-2" width="90%">
+          <tr class="text-center">
               <td class="border-4 border-slate-300 p-2">
                   <input type="hidden" value="{{$images->id}}" name="prescription_id" id="prescription_id">
-                  <table class="border-collapse table-auto border border-black border-spacing-4" >
+                  <table class="border-collapse table-auto border border-black" width="100%">
                           <div class="mx-auto mb-4 max-w-sm bg-white border border-black rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                               <a href="#">
                                   <img class="rounded-t-lg m-2" height="70%" id="image0" onclick="change_image(0)" width="60%" src="{{URL('images/'.$images->prescriptionImage[0]['img_path'])}}" class="mx-auto" alt="" />
                               </a>
                           </div>
-                      <tr class="mx-auto">
-                          <td class="border border-slate-300"><a href=""> <img id="image1" onclick="change_image(1)" height="40%" width="60%" src="{{ isset($images->prescriptionImage[1]) ? URL('images/'.$images->prescriptionImage[1]['img_path']) : null }}" class="mx-auto box-border h-32 w-32 p-2 border-4" alt=""></a></td>
-                          <td class="border border-slate-300"><a href=""> <img id="image2" onclick="change_image(2)" height="40%" width="60%" src="{{ isset($images->prescriptionImage[2]) ? URL('images/'.$images->prescriptionImage[2]['img_path']) : null}}" class="mx-auto box-border h-32 w-32 p-2 border-4" alt=""></a></td>
-                          <td class="border border-slate-300"><a href=""> <img id="image3" onclick="change_image(3)" height="40%" width="60%" src="{{ isset($images->prescriptionImage[3]) ? URL('images/'.$images->prescriptionImage[3]['img_path']) : null}}" class="mx-auto box-border h-32 w-32 p-2 border-4" alt=""></a></td>
-                          <td class="border border-slate-300"><a href=""> <img id="image4" onclick="change_image(4)" height="40%" width="60%" src="{{ isset($images->prescriptionImage[4]) ? URL('images/'.$images->prescriptionImage[4]['img_path']) : null}}" class="mx-auto box-border h-32 w-32 p-2 border-4" alt=""></a></td>
+                      <tr>
+                          <td class="border border-slate-300"><a href=""> <img id="image1" onclick="change_image(1)" src="{{ isset($images->prescriptionImage[1]) ? URL('images/'.$images->prescriptionImage[1]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image2" onclick="change_image(2)" src="{{ isset($images->prescriptionImage[2]) ? URL('images/'.$images->prescriptionImage[2]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image3" onclick="change_image(3)" src="{{ isset($images->prescriptionImage[3]) ? URL('images/'.$images->prescriptionImage[3]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
+                          <td class="border border-slate-300"><a href=""> <img id="image4" onclick="change_image(4)" src="{{ isset($images->prescriptionImage[4]) ? URL('images/'.$images->prescriptionImage[4]['img_path']) : null}}" class="h-40 w-25 border-4" alt=""></a></td>
                       </tr>
                   </table>
               </td>
-              <td class="border-4 border-slate-300  p-5">
-                  <table  >
+              <td class="border-4 border-slate-300 p-5 text-center">
+                  <table>
                       <tr>
-                         <td class="border-2 border-slate-400 w-80 h-80">
-                          <table id="table" class="text-sm text-left text-gray-500 dark:text-gray-400 ml-10">
+                         <td class="border-2 border-slate-400 w-70 h-80">
+                          <table id="table" class="text-sm text-left text-gray-500 dark:text-gray-400 ml-10" width="100%">
                                   <input type="hidden" id="images_id" name="images_id" value="{{$images->prescriptionImage[0]['img_path']}}">
                               <thead class="text-sm text-gray-700 uppercase  dark:text-gray-400">
                                   <tr>
-                                      <th class="pr-2 pl-4">Drug</th>
+                                      <th class="pr-2">Drug</th>
                                       <th class="px-3">Quantity</th>
                                       <th class="px-3">Amount</th>
                                   </tr>
@@ -45,13 +45,12 @@
                               </tbody>
                               <tfoot>
                                   <tr>
-                                      <td colspan="2" class="pt-5 pl-20">Total</td>
-                                      <td class="pt-5"><input type="text" name="total" id="total" class="outline-none border-none"></td>
+                                      <td colspan="2" class="pt-5 pl-10">Total</td>
+                                      <td ><input type="text" name="total" id="total" class="outline-none border-none"></td>
                                   </tr>
                               </tfoot>
                           </table>
                          </td>
-  
                       <tr>
                           <td>
                               <div>
@@ -107,7 +106,7 @@
           $('#total').val(tot_amount);
           
           //append table rows
-          $('#table').append('<tr> <td><input type="hidden" name="drug_id[]" id="drug_id_'+count+'" value='+drug_id+'>'+drug_name+'</td> <td><input type="hidden" name="quantity[]" id="quantity_'+count+'" value='+quantity+'>'+quantity+'</td> <td>'+total+'</td></tr>')
+          $('#table').append('<tr> <td><input type="hidden" name="drug_id[]" id="drug_id_'+count+'" value='+drug_id+'>'+drug_name+'</td> <td class="px-4"><input class="mx-2" type="hidden" name="quantity[]" id="quantity_'+count+'" value='+quantity+'>'+quantity+'</td> <td class="px-3">'+total+'</td></tr>')
           $('#count').val(count);
           count++;
       }
@@ -142,7 +141,7 @@
                                       },
                               data: $('#create_quotation_form').serialize(),
                               success: function(data){
-                                window.location.href= '{{route('dashboard')}}';
+                                // window.location.href= '{{route('dashboard')}}';
                                 }
                           });
                       }else{

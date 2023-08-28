@@ -3,9 +3,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        /* Add your custom CSS styles here */
-
-        /* Reset styles */
         body, html {
             margin: 0;
             padding: 0;
@@ -66,17 +63,11 @@
         <div class="header">
             <h1>Medical Prescription</h1>
         </div>
-        
         <div class="content">
-            <h2>{{$status}}</h2>
-            @if($status == 'cancelled')
-                <p>User has Cancelled the {{$created_at}} dated prescription</p>
-                <br>
-                <p>Sorry for the inconvenience</p>
-            @else
-                <p>User has Confirmed the {{$created_at}} dated prescription</p>
-                <br>
-                <p>Please Delivery the product soon</p>
+            <h2>Hello, {{$name}}!</h2>
+            <p>The Quotation has been created for your {{$created_at}} dated Prescription</p>
+            <br/>
+            <p>Confirm or Cancel the Quotation</p>
             <p>
                 <a href="{{ route('confirm', ['token' => $token]) }}" class="button">Confirm</a>
                 <a href="{{ route('cancel', ['token' => $token]) }}" class="button">Cancel</a>
